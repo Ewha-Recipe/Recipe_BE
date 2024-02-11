@@ -22,9 +22,9 @@ public class FoodController {
     @Autowired // 스프링 부트가 미리 생성해 놓은 리포지토리 객체 주입(DI, 의존성 주입)
     private FoodRepository foodRepository; // foodRepository 객체 선언
     // 스프링부트는 객체 자동으로 생성하므로 따로 구현체 만들 필요 없음
-    @GetMapping("/foods") // URL 요청 접수, localhost:8080/foods에 뷰 페이지를 반환하도록 함
+    @PostMapping("/foods/new") // URL 요청 접수, localhost:8080/foods에 뷰 페이지를 반환하도록 함
     public String newFoodForm(){ // 메소드 생성 및 반환값 작성
-        return "/foods"; // 반환값으로 뷰 페이지의 이름을 적어줌, 파일 경로까지 포함
+        return "/foods/new"; // 반환값으로 뷰 페이지의 이름을 적어줌, 파일 경로까지 포함
     }
 
     // 뷰 페이지에서 폼 데이터를 post 방식으로 전송했으므로 컨트롤러에서 받을 때 @PostMapping()으로 받음(@GetMapping X)
@@ -67,8 +67,8 @@ public class FoodController {
         // show는 mustache 파일, html 파일로 바꿔야 함
     }
 
-    @GetMapping("/foodss")
-    // localhost:8080/foodss URL 요청을 받음, 이 요청이 들어오면 index() 메소드 수행
+    @GetMapping("/foods")
+    // localhost:8080/foods URL 요청을 받음, 이 요청이 들어오면 index() 메소드 수행
     public String index(Model model){ // model 객체 받아오기
         // 1. DB에서 모든 Food 데이터 가져오기
         ArrayList<Food> foodEntityList = foodRepository.findAll();
@@ -79,7 +79,7 @@ public class FoodController {
     }
 
     // 뷰 페이지에서 변수를 사용할 때는 {{중괄호 2개}}, 컨트롤러에서 URL 변수를 사용할 때는 {중괄호 1개}
-    @GetMapping("/articles/{id}") // show.mustache 파일에서 연결 요청한 주소 URL을 작성
+    @GetMapping("/foods/{food_id}/edit") // show.mustache 파일에서 연결 요청한 주소 URL을 작성
     // 수정 요청을 받아 처리할 edit() 메소드를 작성하고, 반환할 수정 페이지를 articles 디렉토리 안에 edit.mustache 파일로 설정
     // id는 위 URL 주소로부터 매개변수로 받아오고 자료형은 Long으로 작성
     // GetMapping() 어노테이션의 URL 주소에 있는 id를 받아오는 것이므로 데이터 타입 앞에 @PathVariable 어노테이션 추가
@@ -129,7 +129,7 @@ public class FoodController {
         return "redirect:/foods/" + foodEntity.getFood_id();
     }
 
-    @GetMapping("/foods/{id}") // URL 요청 접수, HTML은 Delete 메소드를 제공하지 않기 때문에 Get으로 대체
+    @GetMapping("/foods/{food_id}/delete") // URL 요청 접수, HTML은 Delete 메소드를 제공하지 않기 때문에 Get으로 대체
     // id변수는 @GetMapping의 URL 주소에서 가져오기 때문에 매개변수 필요
     // RedirectAttributes 객체를 사용하려면 delete() 메서드의 매개변수로 받아와야 하며 객체 이름은 rttr로 함
     public String delete(@PathVariable Long id, RedirectAttributes rttr) {
