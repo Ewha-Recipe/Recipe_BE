@@ -27,13 +27,13 @@ public class Comment {
 
     public static Comment createComment(CommentDto dto, Food food) {
         // 예외 발생
-        if (dto.getComment_Id() != null)
+        if (dto.getComment_id() != null)
             throw new IllegalArgumentException("댓글 생성 실패! 댓글의 id가 없어야 합니다.");
-        if (dto.getFood_id() != food.getFood_id())
+        if (dto.getFoodId() != food.getFood_id())
         throw new IllegalArgumentException("댓글 생성 실패! 게시글의 id가 잘못됐습니다.")
         // 엔티티 생성 및 반환
         return new Comment(
-                dto.getComment_Id(), // 댓글 아이디
+                dto.getComment_id(), // 댓글 아이디
                 food, // 댓글 단 Food 게시글 아이디
                 dto.getUsername(), // 댓글단 사람의 닉네임
                 dto.getContent() // 댓글 본문

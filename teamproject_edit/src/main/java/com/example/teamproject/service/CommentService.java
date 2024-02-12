@@ -39,6 +39,7 @@ public class CommentService {
 
     }
 
+
     @Transactional
     public CommentDto create(Long foodId, CommentDto dto) {
         // 1. 게시글 조회 및 예외 발생
@@ -55,8 +56,8 @@ public class CommentService {
         return CommentDto.createCommentDto(created);
 
 
-
     }
+
 
     public CommentDto update(Long comment_id, CommentDto dto) {
         // 1. 댓글 조회 및 예외 발생
