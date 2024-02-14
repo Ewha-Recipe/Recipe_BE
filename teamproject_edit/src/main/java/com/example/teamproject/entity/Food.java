@@ -1,5 +1,6 @@
 package com.example.teamproject.entity;
 
+import com.example.teamproject.dto.FoodForm;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,11 +23,21 @@ public class Food {
     @Column // content 필드 선언, DB에서 인식할 수 있게 @Column 붙임. DB 테이블의 열과 연결됨
     private String content;
 
+
     public void patch(Food food) { // 수정할 내용이 있는 경우에만 동작
         if(food.title != null) // 수정 엔티티의 title에 갱신할 값이 있다면 this(target)의 title을 갱신함
             this.title = food.title;
         if(food.content != null) // 수정 엔티티의 content에 갱신할 값이 있다면 this(target)의 content를 갱신함
             this.content = food.content;
+    }
+
+    public void update(FoodForm form) {
+        if(form.getTitle() != null) {
+            this.title = form.getTitle();
+        }
+        if(form.getContent() != null) {
+            this.content = form.getContent();
+        }
     }
 }
 
