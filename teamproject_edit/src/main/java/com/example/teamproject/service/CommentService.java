@@ -21,7 +21,7 @@ public class CommentService {
     private FoodRepository foodRepository; // 게시글 리파지터리 객체 주입
 
     public List<CommentDto> comments(Long foodId) {
-     /*   // 1. 댓글 조회
+        /*// 1. 댓글 조회
         List<Comment> comments = commentRepository.findByFoodId(foodId);
         // 2. 엔티티 -> DTO 변환
         List<CommentDto> dtos = new ArrayList<CommentDto>();
@@ -43,7 +43,7 @@ public class CommentService {
     @Transactional
     public CommentDto create(Long foodId, CommentDto dto) {
         // 1. 게시글 조회 및 예외 발생
-        Food food = FoodRepository.findById(foodId)
+        Food food = foodRepository.findById(foodId)
                 .orElseThrow(() -> new IllegalArgumentException("댓글 생성 실패! " +
                         "대상 게시글이 없습니다.")); // 없으면 에러 메세지 출력
         // 2. 댓글 엔티티 생성

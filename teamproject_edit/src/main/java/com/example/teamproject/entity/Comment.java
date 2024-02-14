@@ -30,7 +30,8 @@ public class Comment {
         if (dto.getComment_id() != null)
             throw new IllegalArgumentException("댓글 생성 실패! 댓글의 id가 없어야 합니다.");
         if (dto.getFoodId() != food.getFood_id())
-        throw new IllegalArgumentException("댓글 생성 실패! 게시글의 id가 잘못됐습니다.")
+        throw new IllegalArgumentException("댓글 생성 실패! 게시글의 id가 잘못됐습니다.");
+
         // 엔티티 생성 및 반환
         return new Comment(
                 dto.getComment_id(), // 댓글 아이디
