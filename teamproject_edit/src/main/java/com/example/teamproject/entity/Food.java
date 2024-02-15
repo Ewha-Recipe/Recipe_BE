@@ -25,10 +25,10 @@ public class Food {
 
 
     public void patch(Food food) { // 수정할 내용이 있는 경우에만 동작
-        if(food.title != null) // 수정 엔티티의 title에 갱신할 값이 있다면 this(target)의 title을 갱신함
-            this.title = food.title;
-        if(food.content != null) // 수정 엔티티의 content에 갱신할 값이 있다면 this(target)의 content를 갱신함
-            this.content = food.content;
+        if(food.title != null){ // 수정 엔티티의 title에 갱신할 값이 있다면 this(target)의 title을 갱신함
+            this.title = food.title;}
+        if(food.content != null){ // 수정 엔티티의 content에 갱신할 값이 있다면 this(target)의 content를 갱신함
+            this.content = food.content;}
     }
 
     public void update(FoodForm form) {
