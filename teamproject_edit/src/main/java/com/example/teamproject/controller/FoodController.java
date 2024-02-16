@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j // 로깅 기능을 위한 어노테이션 추가
-@Controller // 컨트롤러 선언
+@RestController // 컨트롤러 선언
 public class FoodController {
     @Autowired // 스프링 부트가 미리 생성해 놓은 리포지토리 객체 주입(DI, 의존성 주입)
     private FoodRepository foodRepository; // foodRepository 객체 선언
@@ -36,7 +36,7 @@ public class FoodController {
         Food saved = foodRepository.save(food);
         log.info(saved.toString());
 
-        FoodResponseDto response = new FoodResponseDto(saved);
+        FoodResponseDto response = new FoodResponseDto(saved, true);
 
         return ResponseEntity.ok(response);
     }
@@ -51,19 +51,25 @@ public class FoodController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
 
-        FoodResponseDto response = new FoodResponseDto(foodEntity);
+        FoodResponseDto response = new FoodResponseDto(foodEntity, true);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/foods")
-    public ResponseEntity<List<FoodResponseDto>> index(){
-        List<Food> foodEntityList = foodRepository.findAll();
-
-        List<FoodResponseDto> response = foodEntityList.stream()
-                .map(FoodResponseDto::new)
+//    public ResponseEntity<List<FoodResponseDto>> index(){
+//        List<Food> foodEntityList = foodRepository.findAll();
+//
+//        List<FoodResponseDto> response = foodEntityList.stream()
+//                .map(FoodResponseDto::new)
+//                .collect(Collectors.toList());
+//
+//        return ResponseEntity.ok(response);
+//    }
+    public List<FoodResponseDto> getFoods() {
+        List<Food> foods = foodRepository.findAll();
+        return foods.stream()
+                .map(food -> new FoodResponseDto(food, false))
                 .collect(Collectors.toList());
-
-        return ResponseEntity.ok(response);
     }
 
     @PatchMapping("/foods/{food_id}")
@@ -77,7 +83,7 @@ public class FoodController {
         target.update(form);
         Food saved = foodRepository.save(target);
 
-        FoodResponseDto response = new FoodResponseDto(saved);
+        FoodResponseDto response = new FoodResponseDto(saved, true);
         return ResponseEntity.ok(response);
     }
 
