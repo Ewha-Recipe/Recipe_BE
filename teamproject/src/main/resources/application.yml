@@ -1,0 +1,26 @@
+# JPA
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://jwbae-database.chiw6mceydq7.ap-northeast-2.rds.amazonaws.com:3306/food_db
+    username: jwbae
+    password: 1234qwer!
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+
+cloud:
+  aws:
+    s3:
+      bucket: ewha-s3
+    stack.auto: false
+    region.static: ap-northeast-2
+    credentials:
+      accessKey:
+      secretKey:
